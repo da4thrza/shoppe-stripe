@@ -29,7 +29,7 @@ module Shoppe
               charge = ::Stripe::Charge.create({ customer: properties['stripe_customer_token'], amount: (total * BigDecimal(100)).round, currency: Shoppe.settings.stripe_currency, capture: false }, Shoppe::Stripe.api_key)
               payments.create(amount: total, method: 'Stripe', reference: charge.id, refundable: true, confirmed: false)
             rescue ::Stripe::CardError
-              raise Shoppe::Errors::PaymentDeclined, 'Payment was declined by the payment processor.'
+              raise Shoppe::Errors::PaymentDeclined, 'Payment was declined by the payment processor'
             end
           end
         end
